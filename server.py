@@ -189,11 +189,7 @@ def run_http(server: TollsMCPServer, host: str = "0.0.0.0", port: int = 8080):
         })
 
     async def health(request):
-        try:
-            h = server._get("/health")
-            return JSONResponse({"status": "ok", "api": h})
-        except Exception as e:
-            return JSONResponse({"status": "error", "message": str(e)}, status_code=503)
+        return JSONResponse({"status": "ok", "server": "tolls-mcp", "version": "1.0.0"})
 
     app = Starlette(debug=False, routes=[
         Route("/mcp", handle_request, methods=["POST"]),
